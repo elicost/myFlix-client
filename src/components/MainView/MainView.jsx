@@ -193,5 +193,32 @@ export const MainView = () => {
             ImagePath: "https://image.tmdb.org/t/p/w500/placeholder_seventhseal.jpg",
             Featured: false
         }
-    ])
+    ]);
+    
+    const [selectedMovie, setSelectedMovie] = useState(null);
+
+    if (selectedMovie) {
+        return (
+            <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        );
+    }
+
+    if (books.length === 0) {
+        return <div>The list is empty!</div>
+    }
+
+    return (
+        <div>
+            {movies.map((movie) => (
+                <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    onMovieClick={(newSelectedMovie) => {
+                        setSelectedMovie(newSelectedMovie);
+                    }}
+                />
+            ))}
+        </div>
+    );
 };
+
